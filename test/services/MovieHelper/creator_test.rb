@@ -11,6 +11,7 @@ class CreatorTest < Minitest::Test
         def setup
             @creator = Services::Movies::Creator
         end
+        
         it "Creates the movie successfully" do
             subject = @creator.new({name:"Movie Name"})
             subject.stub(:movie_class, book_class_success_mock) do
