@@ -1,5 +1,5 @@
 module Services
-    module MovieHelper
+    module Movies
         class Destroyer
             attr_reader :errors
             def initialize(id)
@@ -7,8 +7,8 @@ module Services
             end
 
             def call
-                @movie = movie_class.find(@id)
-                @errors = @movie.errors.full_messages unless @movie.destroy
+                movie = movie_class.find(@id)
+                @errors = movie.errors.full_messages unless movie.destroy
                 self
             end
 

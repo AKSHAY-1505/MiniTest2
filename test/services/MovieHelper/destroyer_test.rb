@@ -3,7 +3,7 @@ require 'test_helper'
 require 'services/movies/destroyer'
 
 class DestroyerTest < Minitest::Test
-    decribe "Destroy Test" do
+    describe "Destroy Test" do
         def setup
             @destroyer = Services::Movies::Destroyer
         end
@@ -26,14 +26,14 @@ class DestroyerTest < Minitest::Test
 
         def destroyer_mock_success
             mock = Minitest::Mock.new
-            mock.expect(:find , mock , [{1}])
+            mock.expect(:find , mock , [1])
             mock.expect(:destroy , true)
             mock
         end
 
         def destroyer_mock_failure
             mock = Minitest::Mock.new
-            mock.expect(:find , mock , [{1}])
+            mock.expect(:find , mock , [1])
             mock.expect(:destroy , false)
             mock.expect(:errors , mock)
             mock.expect(:full_messages , ["Error Message"])

@@ -1,5 +1,5 @@
 module Services
-    module MovieHelper
+    module Movies
         class Updator 
 
             attr_reader :errors
