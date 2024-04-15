@@ -3,16 +3,18 @@ class MoviesController < ApplicationController
         @movies = Movie.all
     end
 
-    def add
+    def new
         @movie = Movie.new
     end
 
     def create
-        @movie = Movie.new(akshay_params)
-        if @movie.save
-            redirect_to "/"
-        else 
-            redirect_to "/about"
+        @movie = Services::MovieService.new(movie_params).create
+        if @movie.errors
+            flash[:success] = "Error adding Movie! "
+            redirect_to root_path 
+        else
+            flash[:success] = "Movie Succesfully Added!"
+            redirect_to root_path 
         end
     end
 
@@ -24,21 +26,28 @@ class MoviesController < ApplicationController
     end
 
     def update
-        @movie = Movie.find(params[:id])
-        if @movie.update(akshay_params)
-            redirect_to "/"
-        else    
-            redirect_to "/edit/#{params[:id]}"
+        @movie = Services::MovieService.new(movie_params).update(params[:id])
+        if @movie.errors
+            flash[:success] = "Unable to Edit Movie!" 
+            redirect_to root_path 
+        else
+            flash[:success] = "Movie Succesfully Updated!" 
+            redirect_to root_path 
         end
     end
 
     def destroy
-        @movie = Movie.find(params[:id])
-        @movie.destroy
-        redirect_to "/"
+        @movie = Services::MovieService.new().destroy(params[:id])
+        if @movie.errors
+            flash[:success] = "Unable to Delete Movie!" 
+            redirect_to root_path 
+        else
+            flash[:success] = "Movie Deleted Succesfully!" 
+            redirect_to root_path
+        end 
     end
 
-    def akshay_params
+    def movie_params
         params.require(:movie).permit(:name,:director,:cast,:language,:cover)
     end
 end

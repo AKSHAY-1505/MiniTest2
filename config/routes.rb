@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   get "/about" => "movies#about"
 
-  get "/add" => "movies#add"
+  get "/add" => "movies#new"
   post "/add" => "movies#create"
 
   root "movies#index"
